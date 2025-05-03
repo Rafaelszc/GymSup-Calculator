@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Entity
 @Table(name = "diet_table")
 @Setter
@@ -15,10 +16,12 @@ public class Diet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String timestamp;
     private Double callories;
     private Double proteins;
     private Double carbo;
     private Double fat;
 
     public Diet() {}
+
 }

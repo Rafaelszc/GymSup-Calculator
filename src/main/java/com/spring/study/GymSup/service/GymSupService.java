@@ -7,8 +7,10 @@ import com.spring.study.GymSup.repository.PersonRepository;
 import com.spring.study.GymSup.utils.Calculator;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 
 @Service
 public class GymSupService extends Calculator {
@@ -28,6 +30,7 @@ public class GymSupService extends Calculator {
         diet.setProteins(calculate_proteins(person));
         diet.setFat(calculate_fat(person));
         diet.setCarbo(calculate_carbo(diet, person));
+        diet.setTimestamp(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date()));
 
         return dietRepository.save(diet);
     }
