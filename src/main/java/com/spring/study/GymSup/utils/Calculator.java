@@ -5,7 +5,7 @@ import com.spring.study.GymSup.model.Diet;
 import com.spring.study.GymSup.model.Person;
 
 public abstract class Calculator {
-    public Double calculate_callories(Person person) {
+    public Double calculateCallories(Person person) {
         int sexVar=0;
         double dietMultplier=0;
         double tbmMultiplier=0;
@@ -31,7 +31,7 @@ public abstract class Calculator {
         return Math.round(tbm*tbmMultiplier*dietMultplier*100.0)/100.0;
     }
 
-    public Double calculate_proteins(Person person) {
+    public Double calculateProteins(Person person) {
         double proteinFactor=0;
 
         switch (person.getDietType()) {
@@ -42,11 +42,11 @@ public abstract class Calculator {
         return Math.round(person.getWeight()*proteinFactor*100.0)/100.0;
     }
 
-    public Double calculate_fat(Person person) {
+    public Double calculateFat(Person person) {
         return Math.round(person.getWeight()*0.8*100.0)/100.0;
     }
 
-    public Double calculate_carbo(Diet diet, Person person) {
+    public Double calculateCarbo(Diet diet, Person person) {
         if(person.getDietType() == DietType.LOW_CARB) {
             return 100.0;
         }

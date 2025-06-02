@@ -26,10 +26,10 @@ public class GymSupService extends Calculator {
         Diet diet = new Diet();
         personRepository.save(person);
 
-        diet.setCallories(calculate_callories(person));
-        diet.setProteins(calculate_proteins(person));
-        diet.setFat(calculate_fat(person));
-        diet.setCarbo(calculate_carbo(diet, person));
+        diet.setCallories(calculateCallories(person));
+        diet.setProteins(calculateProteins(person));
+        diet.setFat(calculateFat(person));
+        diet.setCarbo(calculateCarbo(diet, person));
         diet.setTimestamp(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date()));
 
         return dietRepository.save(diet);
