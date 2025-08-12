@@ -5,9 +5,6 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",],
   theme: {
     extend: {
-      height: {
-        'md-section': '500px',
-      }
     },
   },
   plugins: [],
