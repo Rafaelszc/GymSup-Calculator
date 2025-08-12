@@ -50,10 +50,6 @@ public class Diet {
         return fat;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }

@@ -65,10 +65,6 @@ public class Person {
         return routine;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setHeight(Integer height) {
         this.height = height;
     }
