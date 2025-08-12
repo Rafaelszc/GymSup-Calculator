@@ -5,7 +5,7 @@ import com.spring.study.GymSup.model.Diet;
 import com.spring.study.GymSup.model.Person;
 
 public abstract class Calculator {
-    public Double calculateCallories(Person person) {
+    public Double calculateCalories(Person person) {
         int sexVar=0;
         double dietMultplier=0;
         double tbmMultiplier=0;
@@ -53,7 +53,7 @@ public abstract class Calculator {
 
         Double cal_per_protein = diet.getProteins()*4;
         Double cal_per_fat = diet.getFat()*9;
-        Double cal_per_carbo = diet.getCallories() - (cal_per_fat+cal_per_protein);
+        Double cal_per_carbo = diet.getCalories() - (cal_per_fat+cal_per_protein);
 
         return Math.round((cal_per_carbo/4)*100)/100.0;
     }

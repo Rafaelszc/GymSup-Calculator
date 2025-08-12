@@ -26,7 +26,7 @@ public class GymSupService extends Calculator {
         Diet diet = new Diet();
         personRepository.save(person);
 
-        diet.setCallories(calculateCallories(person));
+        diet.setCalories(calculateCalories(person));
         diet.setProteins(calculateProteins(person));
         diet.setFat(calculateFat(person));
         diet.setCarbo(calculateCarbo(diet, person));

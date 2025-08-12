@@ -10,18 +10,18 @@ public class Diet {
     private Long id;
 
     private String timestamp;
-    private Double callories;
+    private Double calories;
     private Double proteins;
     private Double carbo;
     private Double fat;
 
     public Diet() {}
 
-    public Diet(Double fat, Double carbo, Double proteins, Double callories, String timestamp, Long id) {
+    public Diet(Double fat, Double carbo, Double proteins, Double calories, String timestamp, Long id) {
         this.fat = fat;
         this.carbo = carbo;
         this.proteins = proteins;
-        this.callories = callories;
+        this.calories = calories;
         this.timestamp = timestamp;
         this.id = id;
     }
@@ -34,8 +34,8 @@ public class Diet {
         return timestamp;
     }
 
-    public Double getCallories() {
-        return callories;
+    public Double getCalories() {
+        return calories;
     }
 
     public Double getProteins() {
@@ -54,8 +54,8 @@ public class Diet {
         this.timestamp = timestamp;
     }
 
-    public void setCallories(Double callories) {
-        this.callories = callories;
+    public void setCalories(Double calories) {
+        this.calories = calories;
     }
 
     public void setProteins(Double proteins) {
