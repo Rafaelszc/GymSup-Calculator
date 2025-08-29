@@ -1,40 +1,35 @@
 package com.spring.study.GymSup.service;
 
-import com.spring.study.GymSup.model.Diet;
-import com.spring.study.GymSup.model.Person;
+import com.spring.study.GymSup.model.diet.Diet;
+import com.spring.study.GymSup.model.diet.ResponseDietDTO;
+import com.spring.study.GymSup.model.person.RequestPersonDTO;
 import com.spring.study.GymSup.repository.DietRepository;
-import com.spring.study.GymSup.repository.PersonRepository;
-import com.spring.study.GymSup.utils.Calculator;
+import com.spring.study.GymSup.calculator.Calculator;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Optional;
 import java.util.Date;
 
 @Service
-public class GymSupService extends Calculator {
+public class GymSupService {
     private final DietRepository dietRepository;
-    private final PersonRepository personRepository;
 
-    public GymSupService(DietRepository dietRepository, PersonRepository personRepository) {
+    public GymSupService(DietRepository dietRepository) {
         this.dietRepository = dietRepository;
-        this.personRepository = personRepository;
     }
 
-    public Diet saveDiet(Person person){
+    public void saveDiet(RequestPersonDTO person){
         Diet diet = new Diet();
-        personRepository.save(person);
 
-        diet.setCalories(calculateCalories(person));
-        diet.setProteins(calculateProteins(person));
-        diet.setFat(calculateFat(person));
-        diet.setCarbo(calculateCarbo(diet, person));
+        diet.setCalories(Calculator.calculateCalories(person));
+        diet.setProteins(Calculator.calculateProteins(person));
+        diet.setFat(Calculator.calculateFat(person));
+        diet.setCarbo(Calculator.calculateCarbo(diet, person));
         diet.setTimestamp(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date()));
 
-        return dietRepository.save(diet);
+        dietRepository.save(diet);
     }
-    public List<Diet> getAllDiet() {return dietRepository.findAll();}
 
-    public Optional<Diet> getByID (Long id) { return dietRepository.findById(id); }
+    public List<ResponseDietDTO> getAllDiet() {return dietRepository.findAll().stream().map(ResponseDietDTO::new).toList();}
 }

@@ -2,7 +2,6 @@ package com.spring.study.GymSup.calculator;
 
 import com.spring.study.GymSup.enums.DietType;
 import com.spring.study.GymSup.model.diet.Diet;
-import com.spring.study.GymSup.model.diet.ResponseDietDTO;
 import com.spring.study.GymSup.model.person.RequestPersonDTO;
 
 public class Calculator {

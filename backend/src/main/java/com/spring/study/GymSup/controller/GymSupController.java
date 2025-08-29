@@ -1,12 +1,11 @@
 package com.spring.study.GymSup.controller;
 
-import com.spring.study.GymSup.model.Diet;
-import com.spring.study.GymSup.model.Person;
+import com.spring.study.GymSup.model.diet.ResponseDietDTO;
+import com.spring.study.GymSup.model.person.RequestPersonDTO;
 import com.spring.study.GymSup.service.GymSupService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -18,11 +17,8 @@ public class GymSupController {
     }
 
     @GetMapping("/get")
-    public List<Diet> getDiet() { return service.getAllDiet(); }
-
-    @PostMapping("/get/{id}")
-    public Optional<Diet> getDietByID (@PathVariable Long id) { return service.getByID(id); }
+    public List<ResponseDietDTO> getDiet() { return service.getAllDiet(); }
 
     @PostMapping("/save")
-    public Diet saveDiet(@RequestBody Person person) { return service.saveDiet(person); }
+    public void saveDiet(@RequestBody RequestPersonDTO person) { service.saveDiet(person); }
 }
