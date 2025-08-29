@@ -1,6 +1,6 @@
 package com.spring.study.GymSup.repository;
 
-import com.spring.study.GymSup.model.Diet;
+import com.spring.study.GymSup.model.diet.Diet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
