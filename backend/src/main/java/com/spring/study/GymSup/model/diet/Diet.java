@@ -1,4 +1,4 @@
-package com.spring.study.GymSup.model;
+package com.spring.study.GymSup.model.diet;
 
 import jakarta.persistence.*;
 
@@ -10,21 +10,12 @@ public class Diet {
     private Long id;
 
     private String timestamp;
-    private Double calories;
-    private Double proteins;
-    private Double carbo;
-    private Double fat;
+    private double calories;
+    private double proteins;
+    private double carbo;
+    private double fat;
 
     public Diet() {}
-
-    public Diet(Double fat, Double carbo, Double proteins, Double calories, String timestamp, Long id) {
-        this.fat = fat;
-        this.carbo = carbo;
-        this.proteins = proteins;
-        this.calories = calories;
-        this.timestamp = timestamp;
-        this.id = id;
-    }
 
     public Long getId() {
         return id;
@@ -34,19 +25,19 @@ public class Diet {
         return timestamp;
     }
 
-    public Double getCalories() {
+    public double getCalories() {
         return calories;
     }
 
-    public Double getProteins() {
+    public double getProteins() {
         return proteins;
     }
 
-    public Double getCarbo() {
+    public double getCarbo() {
         return carbo;
     }
 
-    public Double getFat() {
+    public double getFat() {
         return fat;
     }
 
