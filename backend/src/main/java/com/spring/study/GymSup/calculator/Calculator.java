@@ -14,7 +14,7 @@ public class Calculator {
             case MALE -> sexVar = 5;
             case FEMALE -> sexVar = -161;
         }
-        switch (person.dietType()) {
+        switch (person.diet()) {
             case CUTTING, LOW_CARB -> dietMultplier = 0.8;
             case BULKING -> dietMultplier = 1.15;
             case DEFAULT -> dietMultplier = 1.;
@@ -36,7 +36,7 @@ public class Calculator {
     public static double calculateProteins(RequestPersonDTO person) {
         double proteinFactor=0;
 
-        switch (person.dietType()) {
+        switch (person.diet()) {
             case BULKING, DEFAULT, LOW_CARB -> proteinFactor = 2;
             case CUTTING -> proteinFactor = 2.3;
         }
@@ -49,7 +49,7 @@ public class Calculator {
     }
 
     public static double calculateCarbo(Diet diet, RequestPersonDTO person) {
-        if(person.dietType() == DietType.LOW_CARB) {
+        if(person.diet() == DietType.LOW_CARB) {
             return 100.0;
         }
 
@@ -58,5 +58,11 @@ public class Calculator {
         double cal_per_carbo = diet.getCalories() - (cal_per_fat+cal_per_protein);
 
         return Math.round((cal_per_carbo/4)*100)/100.0;
+    }
+
+    public static int calculateTotal(Diet diet) {
+        int total = (int) (diet.getCarbo() + diet.getProteins() + diet.getFat());
+
+        return total;
     }
 }

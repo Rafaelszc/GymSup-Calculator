@@ -27,9 +27,10 @@ public class GymSupService {
         diet.setFat(Calculator.calculateFat(person));
         diet.setCarbo(Calculator.calculateCarbo(diet, person));
         diet.setTimestamp(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date()));
+        diet.setTotal(Calculator.calculateTotal(diet));
 
         dietRepository.save(diet);
     }
 
-    public List<ResponseDietDTO> getAllDiet() {return dietRepository.findAll().stream().map(ResponseDietDTO::new).toList();}
+    public List<ResponseDietDTO> getAllDiet() {return dietRepository.findAll().stream().map(ResponseDietDTO::new).toList().reversed();}
 }
