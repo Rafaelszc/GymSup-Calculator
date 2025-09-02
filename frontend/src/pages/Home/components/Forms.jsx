@@ -111,7 +111,7 @@ export const Forms = () => {
             <SwiperSlide key={i}>
                 <div className="h-full flex flex-col justify-center items-center gap-8 relative">
                     <button type="button" className={`absolute h-6 w-6 top-6 right-6 flex flex-col group ${o.id === "" ? 'hidden' : ''}`} onClick={() => deleteDiet(o.id)}>
-                        <img className="group-hover:-translate-y-1 transition duration-200" src="icons/cover_trash.png" alt="" />
+                        <img className="group-hover:-translate-y-1 group-hover:rotate-12 transition duration-200" src="icons/cover_trash.png" alt="" />
                         <img src="icons/trash.png" alt="" />
                     </button>
                     <div className="relative flex justify-center items-center h-44">
