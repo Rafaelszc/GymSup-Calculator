@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5173/", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST})
+@CrossOrigin(origins = "http://localhost:5173/", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
 public class GymSupController {
     private final GymSupService service;
 
@@ -23,4 +23,7 @@ public class GymSupController {
 
     @PostMapping("/save")
     public void saveDiet(@RequestBody RequestPersonDTO person) { service.saveDiet(person); }
+
+    @DeleteMapping("/delete")
+    public void deleteDiet(@RequestParam Long id) { service.deleteDiet(id); }
 }

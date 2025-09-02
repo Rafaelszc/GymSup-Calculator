@@ -2,7 +2,7 @@ import NumberFlow from "@number-flow/react"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { set, z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Swiper,SwiperSlide } from "swiper/react"
 import { Navigation, Pagination } from "swiper/modules"
@@ -16,6 +16,15 @@ const personSchema = z.object({
     routine: z.enum(["SEDENTARY", "LIGHT", "MODERATE", "INTENSE"])
 })
 
+const dietObject = {
+        id: "",
+        calories: 0,
+        carbo: 0,
+        proteins: 0,
+        fat: 0,
+        total: 0
+    }
+
 export const Forms = () => {
     const personMetrics = [
         {metric: "Height", type: "number", placeholder: "cm"},
@@ -27,13 +36,7 @@ export const Forms = () => {
     ]
     const { register, handleSubmit, reset } = useForm({resolver: zodResolver(personSchema)})
     
-    const [data, setData] = useState([{
-        calories: 0,
-        carbo: 0,
-        proteins: 0,
-        fat: 0,
-        total: 0
-    }])
+    const [data, setData] = useState([dietObject])
 
     const [refresh, setRefresh] = useState(0)
 
@@ -42,8 +45,9 @@ export const Forms = () => {
             const res = await axios.post(
             "http://localhost:8080/api/save",
             fromData)
+
             setRefresh(refresh => refresh + 1)
-            reset()
+
             console.log(fromData)
         } catch (err) {
             console.error(err)
@@ -51,6 +55,32 @@ export const Forms = () => {
 
         reset()
     }
+
+    const deleteDiet = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8080/api/delete?id=${id}`)
+
+            setRefresh(refresh => refresh + 1)
+
+            console.log(data)
+            
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:8080/api/get")
+            
+            if (res.data.length === 0) return setData([dietObject])
+            
+            setData(res.data)
+        }
+
+        fetchData()
+    }, [refresh])
 
     const renderMetricsForms = (o, i) => {
         if (o.type === "radio") {
@@ -80,6 +110,10 @@ export const Forms = () => {
         return (
             <SwiperSlide key={i}>
                 <div className="h-full flex flex-col justify-center items-center gap-8 relative">
+                    <button type="button" className={`absolute h-6 w-6 top-6 right-6 flex flex-col group ${o.id === "" ? 'hidden' : ''}`} onClick={() => deleteDiet(o.id)}>
+                        <img className="group-hover:-translate-y-1 transition duration-200" src="icons/cover_trash.png" alt="" />
+                        <img src="icons/trash.png" alt="" />
+                    </button>
                     <div className="relative flex justify-center items-center h-44">
                         <span className={`absolute h-44 w-44 rounded-full transform transition-colors duration-500 ${(o.calories == 0 ? 'bg-gray-400' : 'bg-blue-500')}`}></span>
                         <span className={`z-10 text-2xl transform transition-colors duration-500 text-gray-black font-semibold ${(o.calories === 0 ? 'text-gray-400' : 'text-black')}`}><NumberFlow value={o?.calories} /> Cal</span>
@@ -105,16 +139,7 @@ export const Forms = () => {
     }
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await axios.get("http://localhost:8080/api/get")
-            if (res.data.length === 0) return
-            
-            setData(res.data)
-        }
 
-        fetchData()
-    }, [refresh])
 
     return (
         <div className="flex-grow m-8">

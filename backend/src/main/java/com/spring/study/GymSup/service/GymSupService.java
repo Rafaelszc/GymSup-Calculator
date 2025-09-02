@@ -6,6 +6,7 @@ import com.spring.study.GymSup.model.person.RequestPersonDTO;
 import com.spring.study.GymSup.repository.DietRepository;
 import com.spring.study.GymSup.calculator.Calculator;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -33,4 +34,6 @@ public class GymSupService {
     }
 
     public List<ResponseDietDTO> getAllDiet() {return dietRepository.findAll().stream().map(ResponseDietDTO::new).toList().reversed();}
+
+    public void deleteDiet(Long id) { dietRepository.deleteById(id); }
 }
