@@ -1,5 +1,6 @@
 package com.spring.study.GymSup.service;
 
+import com.spring.study.GymSup.exception.DietEmptyException;
 import com.spring.study.GymSup.model.diet.Diet;
 import com.spring.study.GymSup.model.diet.ResponseDietDTO;
 import com.spring.study.GymSup.model.person.RequestPersonDTO;
@@ -33,7 +34,13 @@ public class GymSupService {
         dietRepository.save(diet);
     }
 
-    public List<ResponseDietDTO> getAllDiet() {return dietRepository.findAll().stream().map(ResponseDietDTO::new).toList().reversed();}
+    public List<ResponseDietDTO> getAllDiet() {
+        List<ResponseDietDTO> response = dietRepository.findAll().stream().map(ResponseDietDTO::new).toList().reversed();
+
+        if (response.isEmpty()) throw new DietEmptyException();
+
+        return response;
+    }
 
     public void deleteDiet(Long id) { dietRepository.deleteById(id); }
 }
