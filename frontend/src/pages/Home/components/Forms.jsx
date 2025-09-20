@@ -25,8 +25,7 @@ const dietObject = {
         total: 0
     }
 
-export const Forms = () => {
-    const personMetrics = [
+const personMetrics = [
         {metric: "Height", type: "number", placeholder: "cm"},
         {metric: "Weight", type: "number", placeholder: "kg"},
         {metric: "Age", type: "number", placeholder: ""},
@@ -34,6 +33,8 @@ export const Forms = () => {
         {metric: "Diet", type: "radio", values: ["Bulking", "Cutting", "Default", "Low Carb"]},
         {metric: "Routine", type: "radio", values: ["Sedentary", "Light", "Moderate", "Intense"]}
     ]
+
+export const Forms = () => {
     const { register, handleSubmit, reset } = useForm({resolver: zodResolver(personSchema)})
     
     const [data, setData] = useState([dietObject])
@@ -42,13 +43,15 @@ export const Forms = () => {
 
     const onSubmit = async (fromData) => {
         try {
-            const res = await axios.post(
-            "http://localhost:8080/api/save",
-            fromData)
+            const req = await fetch("http://localhost:8080/api/save", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify(fromData)})
 
             setRefresh(refresh => refresh + 1)
 
-            console.log(fromData)
         } catch (err) {
             console.error(err)
         }
@@ -58,11 +61,11 @@ export const Forms = () => {
 
     const deleteDiet = async (id) => {
         try {
-            await axios.delete(`http://localhost:8080/api/delete?id=${id}`)
+            const res = await fetch(`http://localhost:8080/api/delete?id=${id}`, {
+                method: "DELETE"
+            })
 
             setRefresh(refresh => refresh + 1)
-
-            console.log(data)
             
         } catch (err) {
             console.error(err)
@@ -72,11 +75,14 @@ export const Forms = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await axios.get("http://localhost:8080/api/get")
+            const res = await fetch("http://localhost:8080/api/get")
             
-            if (res.data.length === 0) return setData([dietObject])
+            if (!res.ok) return setData([dietObject])
             
-            setData(res.data)
+            res.json().then(
+                diet => setData(diet)
+            )
+            console.table(data)
         }
 
         fetchData()
